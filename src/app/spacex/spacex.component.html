@@ -1,0 +1,59 @@
+<p xmlns="http://www.w3.org/1999/html">spacex works!</p>
+
+<form action="" id="from_add" *ngIf="toggle == true && !edit">
+  <div *ngIf="Messname">{{Messname}}</div>
+  <div *ngIf="Messageage">{{Messageage}}</div>
+  <input type="text" id="fullname">
+  <input id="age">
+  <button (click)="insert()" type="button">Add</button>
+  <button (click)="ToggleTurnoff()">Cancel</button>
+</form>
+
+<form action="" id="from_edit" *ngIf="edit && toggle == true">
+  <input type="text" id="fullname_edit" [value]="edit.data.name">
+  <input id="age_edit" [value]="edit.data.age">
+  <button (click)="Update(edit.id)" type="button">Edit</button>
+  <button (click)="ToggleTurnoff()">Cancel</button>
+</form>
+<!--<h2>{{hero.name}} Details</h2>-->
+<!--<div><span>id: </span>{{hero.id}}</div>-->
+<!--<div><span>name: </span>{{hero.name}}</div>-->
+
+<!--<h2>{{hero.name | uppercase}} Details</h2>-->
+
+<!--<div>-->
+<!--  <label>name:-->
+<!--    <input [(ngModel)]="hero.name" >-->
+<!--  </label>-->
+<!--</div>-->
+<button (click)="new()" *ngIf="toggle == false && !edit">Add new</button>
+<h2>My Heroes</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">STT</th>
+    <th scope="col">Fullname</th>
+    <th scope="col">Age</th>
+    <th colspan="2">Action</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let nasa of NASA; let  i = index">
+  <tr *ngIf="nasa">
+    <th scope="row">{{i}}</th>
+    <td>{{nasa.name}}</td>
+    <td>{{nasa.age}}</td>
+    <td><button (click)="Edit(i)">Edit</button></td>
+    <td><button (click)="Delete(i)">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+<!--<ul *ngFor="let nasa of NASA;" class="heroes">-->
+<!--  <li *ngIf="nasa">-->
+<!--    <div>-->
+<!--      <span>{{nasa.name}}</span>-->
+<!--      <pre></pre>-->
+<!--      <span>{{nasa.age}}</span>-->
+<!--      <button (click)="Edit(nasa.id)">Edit</button>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->
