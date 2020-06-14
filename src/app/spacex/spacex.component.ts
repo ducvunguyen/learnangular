@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { InsertComponent } from '../insert/insert.component';
 
 // tslint:disable-next-line:import-spacing
-import  {AppComponentSpacex, Universal} from './app.component.spacex';
+import { AppComponentSpacex, Universal } from './app.component.spacex';
+// import { NgModule, Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+
 import { HEROES } from './mock-space';
 import {any} from 'codelyzer/util/function';
+
 
 @Component({
   selector: 'app-spacex',
@@ -11,20 +16,31 @@ import {any} from 'codelyzer/util/function';
   styleUrls: ['./spacex.component.css']
 })
 
+// @NgModule({
+//   declarations: [
+//     InsertComponent,
+//   ],
+// })
+
+
+
 
 export class SpacexComponent extends AppComponentSpacex implements OnInit {
   NASA;
   toggle = false;
   Messname;
   Messageage;
+
+  INPUT = {
+    fullname: '',
+    age: ''
+  };
   edit: {
     id: any;
     data: any;
   };
-  genK(id= 32, name= 'ads'){
-    return  super.init(id, name);
-  }
-   constructor() {
+
+  constructor() {
      super();
      const dataSpace = JSON.parse(localStorage.getItem('data'));
      dataSpace ? this.NASA = dataSpace : this.NASA = [];
@@ -36,17 +52,20 @@ export class SpacexComponent extends AppComponentSpacex implements OnInit {
       this.toggle = false;
       this.edit = undefined;
 
-   }
+  }
+  ResetInput() {
+    this.INPUT = {
+      fullname: '',
+      age: ''
+    }
+  }
   insert(){
-    const fullname = (document.getElementById('fullname') as HTMLInputElement).value;
-    const tuoi = (document.getElementById('age') as HTMLInputElement).value;
-    // console.log(demo);
-    if (!fullname){
+    if (!this.INPUT.fullname){
       return this.Messname = 'Ban chua nhap ten';
     }else{
       this.Messageage = undefined;
     }
-    if (!tuoi){
+    if (!this.INPUT.age){
       this.Messageage = 'Ban chua nhap tuoi';
       return this.Messageage;
     }else {
@@ -54,12 +73,13 @@ export class SpacexComponent extends AppComponentSpacex implements OnInit {
     }
     const data = {
       id: super.IdGenderal(),
-      name: fullname,
-      age: tuoi,
+      name: this.INPUT.fullname,
+      age: this.INPUT.age,
     };
     this.NASA.push(data);
     localStorage.setItem('data', JSON.stringify(this.NASA));
     this.ToggleTurnoff();
+    this.ResetInput();
     return this.NASA;
   }
   Edit(_ID){
@@ -69,11 +89,15 @@ export class SpacexComponent extends AppComponentSpacex implements OnInit {
     };
     const demo = JSON.parse(localStorage.getItem('data'));
     this.toggle = true;
+    this.INPUT = {
+      fullname: this.edit.data.name,
+      age: this.edit.data.age
+    }
   }
 
   Update(id: any){
-    const fullname = (document.getElementById('fullname_edit') as HTMLInputElement).value;
-    const tuoi = (document.getElementById('age_edit') as HTMLInputElement).value;
+    const fullname = this.INPUT.fullname;
+    const tuoi = this.INPUT.fullname;
     const data = {
       id: super.IdGenderal(),
       name: fullname,
@@ -92,12 +116,10 @@ export class SpacexComponent extends AppComponentSpacex implements OnInit {
 
 
   ngOnInit() {
-    return this.genK();
   }
 
   new() {
     this.toggle = !this.toggle;
-    console.log(this.toggle);
   }
 }
 

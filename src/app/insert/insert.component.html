@@ -1,0 +1,10 @@
+<!-- <input type="text" id="fullname"> -->
+
+<form>
+  <div *ngIf="Messname">{{Messname}}</div>
+  <div *ngIf="Messageage">{{Messageage}}</div>
+  <input  [(ngModel)] = "INPUT.fullname" name="fullname">
+  <input  [(ngModel)] = "INPUT.age" name="age">
+  <button (click)="insert()" type="button">Add</button>
+  <button (click)="ToggleTurnoff()">Cancel</button>
+</form>
