@@ -11,7 +11,7 @@ class AppComponentSpacex {
   init(id: number, name: string){
     return `${id} ${name}`;
   }
-  IdGenderal(){
+  create_id(){
     const id = JSON.parse(localStorage.getItem('data_id'));
     if (id == null){
       _ID = 1;
@@ -23,8 +23,10 @@ class AppComponentSpacex {
       localStorage.setItem('data_id', String(_ID));
       // tslint:disable-next-line:radix
     }
-    console.log(_ID);
     return _ID;
+  }
+  IdGenderal(){
+    return 'data' + this.create_id();
   }
 }
 

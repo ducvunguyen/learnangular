@@ -5,58 +5,47 @@
   <button (click)="ToggleTurnoff()">Cancel</button>
 </form> -->
 
-<!-- <form action="" id="from_add" *ngIf="toggle == true && !edit">
-  <div *ngIf="Messname">{{Messname}}</div>
-  <div *ngIf="Messageage">{{Messageage}}</div>
-  <input  [(ngModel)] = "INPUT.fullname" name="fullname">
-  <input  [(ngModel)] = "INPUT.age" name="age">
-  <button (click)="insert()" type="button">Add</button>
-  <button (click)="ToggleTurnoff()">Cancel</button>
-</form> -->
-<app-insert action="" id="from_add" *ngIf="toggle == true && !edit"></app-insert>
-<form action="" id="from_edit" *ngIf="edit && toggle == true">
-  <input [(ngModel)] = "INPUT.fullname" [value]="edit.data.name" name="fullname">
-  <input [(ngModel)] = "INPUT.fullname" [value]="edit.data.age" name="age">
-  <button (click)="Update(edit.id)" type="button">Edit</button>
-  <button (click)="ToggleTurnoff()">Cancel</button>
-</form>
-
+<!--<form action="" id="from_add" *ngIf="toggle == true && !edit">-->
+<!--  <div *ngIf="Messname">{{Messname}}</div>-->
+<!--  <div *ngIf="Messageage">{{Messageage}}</div>-->
+<!--  <input  [(ngModel)] = "INPUT.fullname" name="fullname">-->
+<!--  <input  [(ngModel)] = "INPUT.age" name="age">-->
+<!--  <button (click)="insert()" type="button">Add</button>-->
+<!--  <button (click)="ToggleTurnoff()">Cancel</button>-->
+<!--</form>-->
 <button (click)="new()" *ngIf="toggle == false && !edit">Add new</button>
+
+
+<app-insert *ngIf="toggle == true && !edit" [inputInsert]="INPUT" (insert)="insert()" (toggleTurnoff)="ToggleTurnoff()" [validate]="validate">
+</app-insert>
+
+<!--<form action="" id="from_edit" >-->
+<!--  <input [(ngModel)] = "INPUT.fullname" [value]="edit.data.name" name="fullname">-->
+<!--  <input [(ngModel)] = "INPUT.age" [value]="edit.data.age" name="age">-->
+<!--  <button (click)="Update(edit.id)" type="button">Edit</button>-->
+<!--  <button (click)="ToggleTurnoff()">Cancel</button>-->
+<!--</form>-->
+
 <h2>My Heroes</h2>
 <table class="table">
   <thead>
-  <tr>
-    <th scope="col">STT</th>
+  <tr class="styled">
+    <th scope="col" >STT</th>
     <th scope="col">Fullname</th>
     <th scope="col">Age</th>
-    <th colspan="2">Action</th>
+    <th scope="col">Action</th>
   </tr>
   </thead>
   <tbody *ngFor="let nasa of NASA; let  i = index">
-  <tr *ngIf="nasa">
-    <th scope="row">{{i}}</th>
-    <td>{{nasa.name}}</td>
-    <td>{{nasa.age}}</td>
-    <td><button (click)="Edit(i)">Edit</button></td>
-    <td><button (click)="Delete(i)">Delete</button></td>
+  <tr>
+    <td  scope="row">{{i+1}}</td>
+    <ng-container *ngIf="edit && toggle == true && edit.id === i; else Block">
+      <app-row-list (toggle)="ToggleTurnoff()" (update)="Update(i)" [input]="INPUT" [edit]="edit"></app-row-list>
+    </ng-container>
+    <ng-template #Block>
+      <app-row [nasa]="nasa" [i]="i" (edit)="Edit(i)" (Delete)="Delete(i)"></app-row>
+    </ng-template>
   </tr>
   </tbody>
 </table>
-<!--<ul *ngFor="let nasa of NASA;" class="heroes">-->
-<!--  <li *ngIf="nasa">-->
-<!--    <div>-->
-<!--      <span>{{nasa.name}}</span>-->
-<!--      <pre></pre>-->
-<!--      <span>{{nasa.age}}</span>-->
-<!--      <button (click)="Edit(nasa.id)">Edit</button>-->
-<!--    </div>-->
-<!--  </li>-->
-<!--</ul>-->
-<!-- <ul class="heroes">
-  <li *ngFor="let hero of heroes"
-      [class.selected]="hero === selectedHero"
-      (click)="onSelect(hero)">
-    <span class="badge">{{hero.id}}</span> {{hero.name}}
-  </li>
-</ul> -->
-<!-- <app-hero-detail [hero]="selectedHero"></app-hero-detail> -->
+

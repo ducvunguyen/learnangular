@@ -1,0 +1,8 @@
+<td><input [(ngModel)] = "input.fullname" [value]="edit.data.name" name="fullname"></td>
+<td><input [(ngModel)] = "input.age" [value]="edit.data.age" name="age"></td>
+<td >
+  <button (click)="Update(edit.id)" type="button">Update</button>
+</td>
+<td>
+  <button (click)="ToggleTurnoff()">Cancel</button>
+</td>
